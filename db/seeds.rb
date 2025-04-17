@@ -8,6 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+
 10.times do |i|
     User.create!(
         email:"Minion_#{i+100}@miuandes.cl",
