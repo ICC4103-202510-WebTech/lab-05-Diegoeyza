@@ -1,46 +1,50 @@
-# lab-05
+# Step-by-Step Guide to Create a Rails App
 
-## Create your first ruby and rails models
+## Prerequisites
+Make sure you have the necessary dependencies installed before starting.
 
-In this evaluation, you will be asked to create the first models of your web application `Whats New` using Ruby on Rails.
+### Install Ruby and Rails
+```sh
+rbenv install 3.3.6
+rbenv shell 3.3.6
+gem install rails
+gem install bundler
+rbenv rehash
+```
 
-## Instructions
+### Install PostgreSQL dependencies
+```sh
+sudo apt update
+sudo apt install libpq-dev
+gem install pg
+```
 
-### 1. Create models and database tables
+### Set Up PostgreSQL User
+Replace `#HomeDirUsername` with your actual home directory username.
+```sh
+sudo -u postgres createuser -s #HomeDirUsername
+```
 
-You will have to create at least 3 independent models (and tables). Later on the course we will learn to create associations between models, for the moment all models will be independent from each other.
+## Create a New Rails Application
+Replace `#AppName` with your desired application name.
+```sh
+rails new #AppName --database=postgresql -j esbuild --css bootstrap
+cd #AppName
+rails db:create
+rails server
+```
 
-#### 1.1 Creation of the `User` model and database table
+## Fixing `application.js` Issues
+If you encounter issues with the app finding `application.js`, follow these steps:
 
-Create the `User` models and respective database table with at least the following attributes:
+```sh
+npm install @hotwired/turbo-rails bootstrap @hotwired/stimulus
+rm -rf node_modules package-lock.json
+npm install
+npm run build
+rails assets:clobber
+rails assets:precompile
+bin/dev
+```
 
-- `email` (of type `string`)
-- `first_name` (type `string`)
-- `last_name` (type `string`)
-- `created_at`` (type`datetime`)
-- `updated_at` (type `datetime`)
-
-#### 1.2 Creation of the `Chat` model and database table
-
-Create the `Chat` model and respective database table with the following attributes:
-
-- `sender_id` (of type `integer`)
-- `receiver_id` (type `integer`)
-- `created_at` (type `datetime`)
-- `updated_at` (type `datetime`)
-
-#### 1.3 Creation of the `Message` model and database table
-
-Create the `Message` model and respective database table with the following attributes:
-
-- `chat_id` (type `integer`)
-- `user_id` (type `integer`)
-- `body` (type `text`)
-- `created_at` (type `datetime`)
-- `updated_at` (type `datetime`)
-
-All attributes must be `NOT NULL` at the database level.
-
-### 2. Create dummy data
-
-Populate the `db/seeds.rb` file with at least 10 instances of each model. This file is used to populate the database with data using `create` statements and is executed by running `bin/rails db:seed`.
+Your Rails app should now be running successfully!

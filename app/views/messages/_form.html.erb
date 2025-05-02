@@ -1,0 +1,20 @@
+<%= form_with model: @message do |form| %>
+  <div>
+    <%= form.label :chat_id, "Chat" %>
+    <%= form.select :chat_id, Chat.all.collect { |c| ["Chat ##{c.id}", c.id] }, prompt: "Select Chat" %>
+  </div>
+
+  <div>
+    <%= form.label :user_id, "Author" %>
+    <%= form.select :user_id, User.all.collect { |u| [u.email, u.id] }, prompt: "Select Author" %>
+  </div>
+
+  <div>
+    <%= form.label :body, "Message" %>
+    <%= form.text_area :body, placeholder: "Enter message" %>
+  </div>
+
+  <div>
+    <%= form.submit "Save" %>
+  </div>
+<% end %>

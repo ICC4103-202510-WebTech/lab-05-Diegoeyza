@@ -1,0 +1,15 @@
+<%= form_with model: @chat do |form| %>
+  <div>
+    <%= form.label :sender_id, "Sender" %>
+    <%= form.select :sender_id, User.all.collect { |u| [u.email, u.id] }, prompt: "Select Sender" %>
+  </div>
+
+  <div>
+    <%= form.label :receiver_id, "Receiver" %>
+    <%= form.select :receiver_id, User.all.collect { |u| [u.email, u.id] }, prompt: "Select Receiver" %>
+  </div>
+
+  <div>
+    <%= form.submit "Save" %>
+  </div>
+<% end %>
