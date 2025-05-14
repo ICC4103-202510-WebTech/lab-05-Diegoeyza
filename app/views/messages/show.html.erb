@@ -1,21 +1,19 @@
-<h1>Message Details</h1>
-<p>
-  <strong>Message ID:</strong>
-  <%= @message.id %>
-</p>
-<p>
-  <strong>Chat ID:</strong>
-  <%= @message.chat_id %>
-</p>
-<p>
-  <strong>User ID:</strong>
-  <%= @message.user_id %>
-</p>
-<p>
-  <strong>Message Content:</strong>
-  <%= @message.body %>
-</p>
-<p>
-  <%= link_to 'Edit Message', edit_message_path(@message), class: 'btn btn-outline-primary btn-sm' %>
-</p>
-<%= link_to 'Back to Messages', messages_path %>
+<div class="container my-5">
+  <div class="text-center mb-4">
+    <h1>Message Details</h1>
+  </div>
+
+  <div class="card mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+      <p><strong>Message ID:</strong> <%= @message.id %></p>
+      <p><strong>User:</strong> <%= link_to @message.user.full_name, user_path(@message.user) %></p>
+      <p><strong>Chat:</strong> <%= link_to "Chat ##{@message.chat_id}", chat_path(@message.chat_id) %></p>
+      <p><strong>Body:</strong> <%= @message.body %></p>
+
+      <div class="mt-4">
+        <%= link_to 'Edit Message', edit_message_path(@message), class: 'btn btn-outline-primary' %>
+        <%= link_to 'Back to Messages', messages_path, class: 'btn btn-secondary ms-2' %>
+      </div>
+    </div>
+  </div>
+</div>

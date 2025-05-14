@@ -1,21 +1,51 @@
-<h1>User Details</h1>
-<p>
-  <strong>User ID:</strong>
-  <%= @user.id %>
-</p>
-<p>
-  <strong>First Name:</strong>
-  <%= @user.first_name %>
-</p>
-<p>
-  <strong>Last Name:</strong>
-  <%= @user.last_name %>
-</p>
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-<p>
-  <%= link_to 'Edit User', edit_user_path(@user), class: 'btn btn-outline-primary btn-sm' %>
-</p>
-<%= link_to 'Back to Users', users_path %>
+<div class="container my-5">
+  <div class="text-center mb-4">
+    <h1 class="display-5">User Details</h1>
+  </div>
+
+  <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+      <p><strong>User ID:</strong> <%= @user.id %></p>
+      <p><strong>First Name:</strong> <%= @user.first_name %></p>
+      <p><strong>Last Name:</strong> <%= @user.last_name %></p>
+      <p><strong>Email:</strong> <%= @user.email %></p>
+    </div>
+  </div>
+
+  <div class="accordion my-4" id="userChatsAccordion">
+    <% (@user.sent_chats + @user.received_chats).uniq.each_with_index do |chat, index| %>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingChat<%= index %>">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseChat<%= index %>">
+            Chat #<%= chat.id %> with <%= chat.sender == @user ? chat.receiver.first_name + " " + chat.receiver.last_name : chat.sender.first_name + " " + chat.sender.last_name %>
+          </button>
+        </h2>
+        <div id="collapseChat<%= index %>" class="accordion-collapse collapse" data-bs-parent="#userChatsAccordion">
+          <div class="accordion-body">
+            <p><%= link_to "View full chat", chat_path(chat) %></p>
+
+            <% user_messages_in_chat = chat.messages.where(user_id: @user.id) %>
+            <% if user_messages_in_chat.any? %>
+              <h6>Messages sent by <%= @user.first_name %>:</h6>
+              <ul class="list-group list-group-flush">
+                <% user_messages_in_chat.each do |message| %>
+                  <li class="list-group-item">
+                    <%= link_to truncate(message.body, length: 60), message_path(message) %>
+                    <small class="text-muted d-block">Sent at <%= message.created_at.strftime("%b %d, %Y %H:%M") %></small>
+                  </li>
+                <% end %>
+              </ul>
+            <% else %>
+              <p class="text-muted">No messages from this user in this chat.</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="text-center mt-4">
+    <%= link_to 'Edit User', edit_user_path(@user), class: 'btn btn-outline-primary' %>
+    <%= link_to 'Back to Users', users_path, class: 'btn btn-secondary ms-2' %>
+  </div>
+</div>
