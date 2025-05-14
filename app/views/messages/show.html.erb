@@ -15,4 +15,7 @@
   <strong>Message Content:</strong>
   <%= @message.body %>
 </p>
+<p>
+  <%= link_to 'Edit Message', edit_message_path(@message), class: 'btn btn-outline-primary btn-sm' %>
+</p>
 <%= link_to 'Back to Messages', messages_path %>

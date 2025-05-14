@@ -23,12 +23,14 @@ class ChatsController<ApplicationController
     end
 
     def update
-        @chat = Chat.find(params[:id])
-        if @chat.update(chat_params)
-            redirect_to @chat
-        else
-            render :edit
-        end
+      @chat = Chat.find(params[:id])
+      if @chat.update(chat_params)
+        flash[:notice] = "Chat saved successfully"
+        redirect_to chats_path
+      else
+        flash[:alert] = "#{@chat.errors.full_messages.join(", ")}"
+        redirect_to edit_chat_path(@chat)
+      end
     end
     
     private

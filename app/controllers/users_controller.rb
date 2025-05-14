@@ -24,11 +24,14 @@ class UsersController<ApplicationController
     end
 
     def update
-        if @user.update(user_params)
-          redirect_to @user
-        else
-          render :edit
-        end
+      @user = User.find(params[:id])
+      if @user.update(user_params)
+        flash[:notice] = "User saved successfully"
+        redirect_to users_path
+      else
+        flash[:alert] = "#{@user.errors.full_messages.join(", ")}"
+        redirect_to edit_user_path(@user)
+      end
     end
 
     def user_params

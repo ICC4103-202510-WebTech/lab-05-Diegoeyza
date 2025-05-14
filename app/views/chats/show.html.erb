@@ -11,4 +11,7 @@
   <strong>Reciever ID:</strong>
   <%= @chat.receiver_id %>
 </p>
+<p>
+  <%= link_to 'Edit Chat', edit_chat_path(@chat), class: 'btn btn-outline-primary btn-sm' %>
+</p>
 <%= link_to 'Back to Chats', chats_path %>

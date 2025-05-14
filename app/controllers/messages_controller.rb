@@ -23,12 +23,14 @@ class MessagesController<ApplicationController
     end
     
     def update
-        @message = Message.find(params[:id])
-        if @message.update(message_params)
-          redirect_to @message
-        else
-          render :edit
-        end
+      @message = Message.find(params[:id])
+      if @message.update(message_params)
+        flash[:notice] = "Message saved successfully"
+        redirect_to messages_path
+      else
+        flash[:alert] = "#{@message.errors.full_messages.join(", ")}"
+        redirect_to edit_message_path(@message)
+      end
     end
     
     private
