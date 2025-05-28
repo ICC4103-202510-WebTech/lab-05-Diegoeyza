@@ -1,14 +1,16 @@
 <div class="container my-5">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="display-5">Messages</h1>
-    <%= link_to 'New Message', new_message_path, class: 'btn btn-success' %>
+    <% if can? :create, Message %>
+      <%= link_to 'New Message', new_message_path, class: 'btn btn-success' %>
+    <% end %>
   </div>
 
   <table class="table table-striped table-hover shadow-sm">
     <thead class="table-dark">
       <tr>
         <th>Message ID</th>
-        <th>User ID</th>
+        <th>User</th>
         <th>Chat ID</th>
         <th>Message</th>
         <th>Actions</th>
@@ -16,16 +18,18 @@
     </thead>
     <tbody>
       <% @messages.each do |message| %>
-        <tr>
-          <td><%= message.id %></td>
-          <td><%= message.user_id %></td>
-          <td><%= message.chat_id %></td>
-          <td><%= message.body %></td>
-          <td>
-            <%= link_to 'Open', message_path(message), class: 'btn btn-primary btn-sm' %>
-            <%= link_to 'Edit', edit_message_path(message), class: 'btn btn-outline-secondary btn-sm' %>
-          </td>
-        </tr>
+        <% if can? :read, message %>
+          <tr>
+            <td><%= message.id %></td>
+            <td><%= message.user.full_name %></td>
+            <td><%= message.chat_id %></td>
+            <td><%= message.body %></td>
+            <td>
+              <%= link_to 'Open', message_path(message), class: 'btn btn-primary btn-sm' if can? :read, message %>
+              <%= link_to 'Edit', edit_message_path(message), class: 'btn btn-outline-secondary btn-sm' if can? :update, message %>
+            </td>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>

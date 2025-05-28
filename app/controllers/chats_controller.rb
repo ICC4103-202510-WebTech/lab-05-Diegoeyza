@@ -1,7 +1,9 @@
 class ChatsController<ApplicationController
+    authorize_resource unless: :devise_controller?
     def index
-        @chats=Chat.all   
+    @chats = Chat.where("sender_id = ? OR receiver_id = ?", current_user.id, current_user.id)
     end
+
     def show
         @chat=Chat.find(params[:id])
     end
@@ -15,6 +17,7 @@ class ChatsController<ApplicationController
 
     def create
         @chat = Chat.new(chat_params)
+        @chat.sender = current_user
         if @chat.save
             redirect_to @chat
         else
@@ -35,6 +38,6 @@ class ChatsController<ApplicationController
     
     private
     def chat_params
-        params.require(:chat).permit(:sender_id, :receiver_id)
+        params.require(:chat).permit(:receiver_id)
     end
 end

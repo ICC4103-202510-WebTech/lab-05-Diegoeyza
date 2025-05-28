@@ -1,12 +1,12 @@
 <%= form_with model: @chat do |form| %>
   <div>
-    <%= form.label :sender_id, "Sender" %>
-    <%= form.select :sender_id, User.all.collect { |u| [u.email, u.id] }, prompt: "Select Sender" %>
+    <label>Sender</label>
+    <input type="text" value="<%= current_user.email %>" disabled>
   </div>
 
   <div>
     <%= form.label :receiver_id, "Receiver" %>
-    <%= form.select :receiver_id, User.all.collect { |u| [u.email, u.id] }, prompt: "Select Receiver" %>
+    <%= form.select :receiver_id, User.where.not(id: current_user.id).pluck(:email, :id), prompt: "Select Receiver" %>
   </div>
 
   <div>

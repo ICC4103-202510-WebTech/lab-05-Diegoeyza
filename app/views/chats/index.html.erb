@@ -21,7 +21,9 @@
           <td><%= chat.receiver_id %></td>
           <td>
             <%= link_to 'Open', chat_path(chat), class: 'btn btn-primary btn-sm' %>
-            <%= link_to 'Edit', edit_chat_path(chat), class: 'btn btn-outline-secondary btn-sm' %>
+            <% if user_signed_in? && chat.sender == current_user %>
+              <%= link_to 'Edit', edit_chat_path(chat), class: 'btn btn-outline-secondary btn-sm ms-1' %>
+            <% end %>
           </td>
         </tr>
       <% end %>

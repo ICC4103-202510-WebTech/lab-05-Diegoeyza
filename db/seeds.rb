@@ -10,11 +10,13 @@
 
 
 10.times do |i|
-    User.create!(
-        email:"Minion_#{i+100}@miuandes.cl",
-        first_name:"Minion#{i+100}",
-        last_name:"Gru",
-    )
+  User.create!(
+    email: "Minion_#{i+100}@miuandes.cl",
+    first_name: "Minion#{i+100}",
+    last_name: "Gru",
+    password: "123456",
+    password_confirmation: "123456"
+  )
 end
 
 
