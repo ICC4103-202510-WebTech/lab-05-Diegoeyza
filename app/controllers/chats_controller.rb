@@ -1,7 +1,7 @@
 class ChatsController<ApplicationController
     authorize_resource unless: :devise_controller?
     def index
-    @chats = Chat.where("sender_id = ? OR receiver_id = ?", current_user.id, current_user.id)
+        @chats = current_user.admin? ? Chat.all : Chat.involving(current_user.id)
     end
 
     def show

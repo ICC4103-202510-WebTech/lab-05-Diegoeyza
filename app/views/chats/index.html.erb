@@ -1,6 +1,6 @@
 <div class="container my-5">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="display-5">Chats</h1>
+    <h1 class="display-5">My Inbox</h1>
     <%= link_to 'New Chat', new_chat_path, class: 'btn btn-success' %>
   </div>
 
@@ -8,8 +8,8 @@
     <thead class="table-dark">
       <tr>
         <th>Chat ID</th>
-        <th>Sender ID</th>
-        <th>Receiver ID</th>
+        <th>Sender</th>
+        <th>Receiver</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -17,8 +17,8 @@
       <% @chats.each do |chat| %>
         <tr>
           <td><%= chat.id %></td>
-          <td><%= chat.sender_id %></td>
-          <td><%= chat.receiver_id %></td>
+          <td><%= "#{chat.sender.first_name} #{chat.sender.last_name}" %></td>
+          <td><%= "#{chat.receiver.first_name} #{chat.receiver.last_name}" %></td>
           <td>
             <%= link_to 'Open', chat_path(chat), class: 'btn btn-primary btn-sm' %>
             <% if user_signed_in? && chat.sender == current_user %>

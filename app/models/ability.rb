@@ -7,6 +7,11 @@ class Ability
     user ||= User.new           
     return unless user.persisted? 
 
+    if user.admin?
+      can :manage, :all
+      return
+    end
+
     can :create, Chat
     can :read, Chat do |chat|
       chat.sender_id == user.id || chat.receiver_id == user.id

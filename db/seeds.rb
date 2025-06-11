@@ -15,7 +15,8 @@
     first_name: "Minion#{i+100}",
     last_name: "Gru",
     password: "123456",
-    password_confirmation: "123456"
+    password_confirmation: "123456",
+    admin: false
   )
 end
 
@@ -41,3 +42,12 @@ end
         body: "Asking for #{(i+1)*(i+2)} bananas!!"
     )
 end
+
+User.create!(
+  email: "admin@admin.com",
+  first_name: "Admin",
+  last_name: "User",
+  password: "123456", 
+  password_confirmation: "123456",
+  admin: true
+)

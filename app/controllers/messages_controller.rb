@@ -6,13 +6,15 @@ class MessagesController<ApplicationController
     def show
         @message=Message.find(params[:id])
     end
+
     def new
       @message = Message.new
       @chats = Chat.where("sender_id = ? OR receiver_id = ?", current_user.id, current_user.id)
     end
-    
+        
     def edit
-        @message = Message.find(params[:id])
+      @message = Message.find(params[:id])
+      @chats = Chat.all  # or Chat.involving(current_user.id) if you want to restrict it
     end
     
 

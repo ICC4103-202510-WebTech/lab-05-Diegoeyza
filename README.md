@@ -1,3 +1,12 @@
+# Instructions
+## Login credentials
+You can login as admin with the credentials admin@admin.com and password 123456
+only the admin can see all of the users, the users dont have access to this tab
+
+You can login as a regular user with chats using the credentials Minion_101@miuandes.cl and password 123456
+
+
+
 # Step-by-Step Guide to Create a Rails App
 
 ## Prerequisites
